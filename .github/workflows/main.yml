@@ -22,12 +22,21 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
       - name: Start FastAPI application
         run: |
           uvicorn app.main:app --host 127.0.0.1 --port 8000 &
-          sleep 3
+
+          for i in {1..10}; do
+            if curl -f http://127.0.0.1:8000/api/search; then
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "API failed to start"
+          exit 1
 
       - name: Run functional tests
         run: python -m pytest
@@ -36,7 +45,17 @@ jobs:
         uses: grafana/setup-k6-action@v1
 
       - name: Run performance check
-        uses: grafana/run-k6-action@v1
+        run: k6 run --summary-export=performance/summary.json performance/search.js
+
+      - name: Generate performance report
+        if: always()
+        run: python performance/generate_report.py
+
+      - name: Upload performance report
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          path: performance/search.js
-          debug: true
+          name: performance-report
+          path: |
+            performance/performance-report.html
+            performance/summary.json
