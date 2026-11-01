@@ -1,3 +1,6 @@
 /.venv/
 /performance/performance-report.html
 /performance/summary.json
+/performance/naive-summary.json
+/performance/modeled-summary.json
+/performance/workload-report.html
