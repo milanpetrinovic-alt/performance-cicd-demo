@@ -1,0 +1,11 @@
+name: Workload Modeling Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  instructions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instructions
+        run: echo "Select the workload-modeling branch to run the complete demo."
