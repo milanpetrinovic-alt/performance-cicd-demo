@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search | Protocol vs Browser Workshop</title>
+  <link rel="stylesheet" href="/protocol-demo/styles.css">
+  <script defer src="/protocol-demo/search.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">↗</span><span>DEMO <strong>CATALOG</strong></span></div>
+      <span class="workshop-tag">PERFORMANCE TESTING · WORKSHOP 03</span>
+    </header>
+
+    <main>
+      <div class="eyebrow">SAME SEARCH API · TWO EXECUTION LAYERS</div>
+      <h1>What happens <em>after</em> you click Search?</h1>
+      <p class="lead">Find a product. Inspect the network request. Then switch on a frontend-only slowdown and repeat.</p>
+
+      <section class="mode-panel" aria-label="Demo mode">
+        <div>
+          <div class="section-label">DEMO MODE</div>
+          <p class="mode-explanation">The HTTP endpoint is identical in both modes. Only the browser's work after receiving JSON changes.</p>
+        </div>
+        <div class="mode-switch">
+          <a id="normal-link" href="/protocol-demo?slow=0">Normal UI</a>
+          <a id="slow-link" href="/protocol-demo?slow=1">Slow UI (+900 ms)</a>
+        </div>
+      </section>
+
+      <section class="search-card">
+        <form id="search-form">
+          <label for="search-input">SEARCH PRODUCTS</label>
+          <div class="search-row">
+            <input id="search-input" aria-label="Search products" autocomplete="off" placeholder="Try laptop, tablet, mouse…" value="laptop" required>
+            <button type="submit" id="search-button">Search <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="request-hint"><strong>Network request</strong> <code>GET /protocol-demo/api/search?q=laptop</code></div>
+        </form>
+        <p id="status" role="status" aria-live="polite">Enter a query and click Search.</p>
+        <div id="search-results" data-testid="search-results" hidden>
+          <div class="results-heading"><h2>Search results</h2><span id="result-count"></span></div>
+          <div id="results-list" class="results-list"></div>
+          <div class="timing-grid">
+            <div><div class="timing-label">Browser fetch + JSON</div><div class="timing-value" id="fetch-time">—</div></div>
+            <div><div class="timing-label">Deliberate frontend work</div><div class="timing-value" id="frontend-time">—</div></div>
+            <div><div class="timing-label">Browser click → DOM update</div><div class="timing-value" id="total-time">—</div></div>
+          </div>
+        </div>
+      </section>
+      <p class="footnote">Workshop-only synthetic data. The “slow” option deliberately blocks the main thread after the API responds. Browser timings shown here are educational measurements, not Core Web Vitals.</p>
+    </main>
+    <footer>Protocol-level HTTP ≠ browser rendering · Open DevTools → Network and Performance</footer>
+  </div>
+</body>
+</html>

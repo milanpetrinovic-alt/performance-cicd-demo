@@ -1,0 +1,108 @@
+{
+  "created_utc": "2026-11-22T11:47:35.392734+00:00",
+  "base_url": "http://127.0.0.1:8000",
+  "method": "One Chromium browser; fresh page per observation; first sample per mode is warm-up and excluded.",
+  "warning": "Click-to-visible is a Playwright observation, not a standardized browser paint metric.",
+  "modes": {
+    "normal": {
+      "sample_count": 7,
+      "median_click_to_visible_ms": 133.41,
+      "p95_click_to_visible_ms": 141.84,
+      "median_frontend_work_ms": 0,
+      "samples": [
+        {
+          "click_to_visible_ms": 141.84,
+          "browser_fetch_and_json_ms": 23.3,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 23.6
+        },
+        {
+          "click_to_visible_ms": 120.12,
+          "browser_fetch_and_json_ms": 23.6,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 23.8
+        },
+        {
+          "click_to_visible_ms": 133.41,
+          "browser_fetch_and_json_ms": 23,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 23.6
+        },
+        {
+          "click_to_visible_ms": 137.09,
+          "browser_fetch_and_json_ms": 24.1,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 24.3
+        },
+        {
+          "click_to_visible_ms": 117.86,
+          "browser_fetch_and_json_ms": 22.1,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 22.4
+        },
+        {
+          "click_to_visible_ms": 115.84,
+          "browser_fetch_and_json_ms": 18.2,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 18.6
+        },
+        {
+          "click_to_visible_ms": 135.57,
+          "browser_fetch_and_json_ms": 24.3,
+          "deliberate_frontend_work_ms": 0,
+          "click_to_dom_update_ms": 24.5
+        }
+      ]
+    },
+    "slow": {
+      "sample_count": 7,
+      "median_click_to_visible_ms": 1001.35,
+      "p95_click_to_visible_ms": 1047.93,
+      "median_frontend_work_ms": 900.1,
+      "samples": [
+        {
+          "click_to_visible_ms": 1020.76,
+          "browser_fetch_and_json_ms": 26.4,
+          "deliberate_frontend_work_ms": 900.1,
+          "click_to_dom_update_ms": 926.7
+        },
+        {
+          "click_to_visible_ms": 993.05,
+          "browser_fetch_and_json_ms": 27,
+          "deliberate_frontend_work_ms": 900.5,
+          "click_to_dom_update_ms": 927.6
+        },
+        {
+          "click_to_visible_ms": 1047.93,
+          "browser_fetch_and_json_ms": 26,
+          "deliberate_frontend_work_ms": 933.6,
+          "click_to_dom_update_ms": 960
+        },
+        {
+          "click_to_visible_ms": 1003.29,
+          "browser_fetch_and_json_ms": 24.3,
+          "deliberate_frontend_work_ms": 900.1,
+          "click_to_dom_update_ms": 924.6
+        },
+        {
+          "click_to_visible_ms": 998.93,
+          "browser_fetch_and_json_ms": 23.1,
+          "deliberate_frontend_work_ms": 900,
+          "click_to_dom_update_ms": 923.3
+        },
+        {
+          "click_to_visible_ms": 1000.2,
+          "browser_fetch_and_json_ms": 26.8,
+          "deliberate_frontend_work_ms": 900,
+          "click_to_dom_update_ms": 927
+        },
+        {
+          "click_to_visible_ms": 1001.35,
+          "browser_fetch_and_json_ms": 21.7,
+          "deliberate_frontend_work_ms": 900,
+          "click_to_dom_update_ms": 921.9
+        }
+      ]
+    }
+  }
+}

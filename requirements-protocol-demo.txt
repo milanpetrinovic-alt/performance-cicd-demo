@@ -1,0 +1,2 @@
+# Optional workshop-only dependencies; keep the repository's original requirements.txt unchanged.
+playwright==1.55.0

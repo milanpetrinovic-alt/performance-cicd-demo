@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Workload Modeling Report</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #101827;
+        color: #e5e7eb;
+        max-width: 1100px;
+        margin: 50px auto;
+        padding: 0 30px;
+    }
+
+    h1 {
+        color: white;
+        margin-bottom: 8px;
+    }
+
+    h2 {
+        margin-top: 40px;
+        color: white;
+    }
+
+    .subtitle {
+        color: #9ca3af;
+        margin-bottom: 35px;
+    }
+
+    .card {
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 16px;
+        text-align: left;
+        border-bottom: 1px solid #334155;
+    }
+
+    th {
+        color: #94a3b8;
+        font-weight: normal;
+    }
+
+    td {
+        font-size: 15px;
+    }
+
+    .on-target {
+        color: #4ade80;
+    }
+
+    .off-target {
+        color: #fb7185;
+    }
+
+    .badge {
+        display: block;
+        font-size: 10px;
+        margin-top: 5px;
+        letter-spacing: 1px;
+    }
+
+    .traffic-bar {
+        display: flex;
+        width: 100%;
+        height: 35px;
+        overflow: hidden;
+        border-radius: 6px;
+        margin: 12px 0 25px;
+    }
+
+    .browse {
+        background: #38bdf8;
+    }
+
+    .search {
+        background: #a78bfa;
+    }
+
+    .checkout {
+        background: #fbbf24;
+    }
+
+    .legend {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+        font-size: 13px;
+    }
+
+    .legend span::before {
+        content: "● ";
+    }
+
+    .legend .browse-label {
+        color: #38bdf8;
+    }
+
+    .legend .search-label {
+        color: #a78bfa;
+    }
+
+    .legend .checkout-label {
+        color: #fbbf24;
+    }
+
+    .note {
+        color: #94a3b8;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Workload Modeling Report</h1>
+
+<p class="subtitle">
+Target vs. actual traffic — Naive and Calculated Models
+</p>
+
+<div class="card">
+
+<h2>Workload Accuracy</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Metric</th>
+    <th>Business Target</th>
+    <th>Naive Model</th>
+    <th>Calculated Model</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+    <td>Total Throughput</td>
+    <td>10.00 ops/s</td>
+    
+        <td class="off-target">
+            <strong>8.25 ops/s</strong>
+            <span class="badge">OFF TARGET</span>
+        </td>
+    
+    
+        <td class="on-target">
+            <strong>10.00 ops/s</strong>
+            <span class="badge">ON TARGET</span>
+        </td>
+    
+</tr>
+
+    <tr>
+        <td>Browse</td>
+        <td>70.00%</td>
+        
+        <td class="off-target">
+            <strong>84.85%</strong>
+            <span class="badge">OFF TARGET</span>
+        </td>
+    
+        
+        <td class="on-target">
+            <strong>70.00%</strong>
+            <span class="badge">ON TARGET</span>
+        </td>
+    
+    </tr>
+    
+    <tr>
+        <td>Search</td>
+        <td>20.00%</td>
+        
+        <td class="off-target">
+            <strong>12.12%</strong>
+            <span class="badge">OFF TARGET</span>
+        </td>
+    
+        
+        <td class="on-target">
+            <strong>20.00%</strong>
+            <span class="badge">ON TARGET</span>
+        </td>
+    
+    </tr>
+    
+    <tr>
+        <td>Checkout</td>
+        <td>10.00%</td>
+        
+        <td class="off-target">
+            <strong>3.03%</strong>
+            <span class="badge">OFF TARGET</span>
+        </td>
+    
+        
+        <td class="on-target">
+            <strong>10.00%</strong>
+            <span class="badge">ON TARGET</span>
+        </td>
+    
+    </tr>
+    
+</tbody>
+</table>
+
+</div>
+
+<div class="card">
+
+<h2>Traffic Distribution</h2>
+
+<div class="legend">
+    <span class="browse-label">Browse</span>
+    <span class="search-label">Search</span>
+    <span class="checkout-label">Checkout</span>
+</div>
+
+<h3>Business Target — 70 / 20 / 10</h3>
+
+<div class="traffic-bar">
+    <div class="browse" style="width:70%"></div>
+    <div class="search" style="width:20%"></div>
+    <div class="checkout" style="width:10%"></div>
+</div>
+
+<h3>Naive Model</h3>
+
+<div class="traffic-bar">
+            <div class="browse"
+                 style="width: 84.85%"
+                 title="browse: 84.85%">
+            </div>
+        
+            <div class="search"
+                 style="width: 12.12%"
+                 title="search: 12.12%">
+            </div>
+        
+            <div class="checkout"
+                 style="width: 3.03%"
+                 title="checkout: 3.03%">
+            </div>
+        </div>
+
+<h3>Calculated Model</h3>
+
+<div class="traffic-bar">
+            <div class="browse"
+                 style="width: 70.00%"
+                 title="browse: 70.00%">
+            </div>
+        
+            <div class="search"
+                 style="width: 20.00%"
+                 title="search: 20.00%">
+            </div>
+        
+            <div class="checkout"
+                 style="width: 10.00%"
+                 title="checkout: 10.00%">
+            </div>
+        </div>
+
+</div>
+
+<div class="card">
+
+<h2>Execution Details</h2>
+
+<table>
+<tr>
+    <th>Metric</th>
+    <th>Naive</th>
+    <th>Calculated</th>
+</tr>
+
+<tr>
+    <td>Virtual Users</td>
+    <td>10</td>
+    <td>15</td>
+</tr>
+
+<tr>
+    <td>Completed Operations</td>
+    <td>495</td>
+    <td>600</td>
+</tr>
+
+<tr>
+    <td>HTTP Error Rate</td>
+    <td>0.00%</td>
+    <td>0.00%</td>
+</tr>
+
+</table>
+
+</div>
+
+<p class="note">
+The ON TARGET / OFF TARGET labels use demo tolerances:
+±1 operation/second for total throughput and ±3 percentage
+points for scenario distribution. These are illustrative
+workload-model checks, not application performance thresholds.
+The operation counts include successful requests only.
+</p>
+
+</body>
+</html>

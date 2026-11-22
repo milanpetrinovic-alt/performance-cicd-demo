@@ -1,0 +1,74 @@
+name: Protocol vs Browser Demo
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-execution-layers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-protocol-demo.txt
+
+      - name: Install Chromium for Playwright
+        run: python -m playwright install --with-deps chromium
+
+      - name: Start FastAPI and verify workshop page
+        run: |
+          uvicorn app.main:app --host 127.0.0.1 --port 8000 > /tmp/demo_app.log 2>&1 &
+          for i in {1..30}; do
+            if curl --silent --fail http://127.0.0.1:8000/protocol-demo > /dev/null; then
+              echo 'Workshop application is ready'
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/demo_app.log
+          echo 'Workshop application did not start'
+          exit 1
+
+      - name: Run API and functional tests
+        run: python -m pytest -q
+
+      - name: Measure real browser interaction in both UI modes
+        run: python performance/measure_browser.py --runs 7
+
+      - name: Install k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run HTTP-only load test (same API for both UI modes)
+        run: |
+          k6 run \
+            --summary-export=performance/api-summary.json \
+            performance/protocol_search.js
+
+      - name: Generate comparison report
+        run: python performance/compare_layers.py
+
+      - name: Upload report and raw measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol-vs-browser-report
+          path: |
+            performance/protocol-browser-report.html
+            performance/browser-results.json
+            performance/api-summary.json
+          if-no-files-found: warn
+          retention-days: 14
